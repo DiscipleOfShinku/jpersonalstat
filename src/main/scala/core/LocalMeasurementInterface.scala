@@ -1,4 +1,5 @@
 package core
+import com.github.nscala_time.time.Imports._
 
 /**
   * Created by nekomiko on 04.11.16.
@@ -27,17 +28,19 @@ class LocalMeasurementInterface(var ms: List[Measurement], var logs: List[Measur
     if(idx != -1) {
       ms = ms.updated(idx,m)
     }
-    else {
-      ms ::= m
-    }
   }
   def updateLog(l: MeasurementLog) = {
     val idx = logs.indexWhere ( l0 => l0.id == l.id )
     if(idx != -1) {
       logs = logs.updated(idx,l)
     }
-    else {
-      logs ::= l
-    }
+  }
+  def add(name: String) = {
+    val m = new Measurement(newId(), name, 0)
+    ms ::= m
+  }
+  def addLog(m: Measurement, date: DateTime, message: String) = {
+    val l = new MeasurementLog(newLogId(),m.id, date, message)
+    logs ::= l
   }
 }

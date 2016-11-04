@@ -23,16 +23,11 @@ trait MeasurementInterface {
 
   def getLog(m: Measurement): List[MeasurementLog]
 
-  //rewrites single Measurement information (excluding log) or creates new
+  //rewrites single Measurement information (excluding log) if it exists
   def update(m: Measurement)
 
-  //rewrites single log entry or creates new
+  //rewrites single log entry if it exists
   def updateLog(l: MeasurementLog)
-
-  //creates new measurement object with given parameters and new id
-  protected def create(name: String): Measurement = {
-    new Measurement(newId(), name, 0)
-  }
 
   //creates log object with given parameters and new id
   protected def createLog(mid: Int, message: String, date: DateTime) = {
@@ -41,16 +36,17 @@ trait MeasurementInterface {
 
   //increments Measurement state and adds log-record to its history
   def inc(m: Measurement, message: String, date: DateTime) = {
-    val l = createLog(m.id, message, date)
-    updateLog(l)
+    addLog(m, date, message)
     m.value += 1
     update(m)
   }
 
   //Adds new Measurement with given name
-  def add(name: String) = {
-      update(create(name))
-  }
+  def add(name: String)
+
+  //adds new log entry with given parameters
+  //should not be used directly, use inc instead
+  protected def addLog(m: Measurement, date: DateTime, message: String)
 
   //checks if value of measurement equals to the number of log entries
   def checkConsistency(m: Measurement) = m.value == getLog(m).length
