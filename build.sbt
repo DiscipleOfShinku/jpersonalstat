@@ -12,4 +12,6 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 
 libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.8.11.2"
 
+libraryDependencies += "commons-cli" % "commons-cli" % "1.3.1"
+
 testOptions in Test += Tests.Argument("-oF")
