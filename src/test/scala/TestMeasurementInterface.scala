@@ -8,13 +8,13 @@ import org.scalatest.FunSuite
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
-//import org.scalatest._
+import java.io.File
 
 import com.github.nscala_time.time.Imports._
 
 @RunWith(classOf[JUnitRunner])
 class MeasurementInterface extends FunSuite {
-  def testInterface(iface: core.MeasurementInterface): Unit = {
+  def testMeasurementInterface(iface: core.MeasurementInterface): Unit = {
     val mCount = iface.getAll().length
     iface.add("Zero counter")
     assert(iface.getAll().length == mCount + 1)
@@ -52,7 +52,15 @@ class MeasurementInterface extends FunSuite {
 
   test("LocalMeasurementInterface tests") {
     val localInterface = new core.LocalMeasurementInterface(List(),List())
-    testInterface(localInterface)
+    testMeasurementInterface(localInterface)
+  }
+  test("SQLiteMeasurementInterface tests") {
+    val tmpfile: File = File.createTempFile("temp",".db")
+    val dbname = tmpfile.getAbsolutePath()
+    val sqlInterface=new core.SQLiteMeasurementInterface(core.SQLiteInitializer.init(dbname))
+    testMeasurementInterface(sqlInterface)
+    sqlInterface.closeConnection()
+    tmpfile.delete()
   }
 
 }
