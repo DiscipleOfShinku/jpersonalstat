@@ -2,6 +2,7 @@ package cmdui
 
 import core._
 import org.apache.commons.cli._
+import java.io.File
 
 /**
   * Created by DiscipleOfShinku on 11/5/2016.
@@ -11,10 +12,8 @@ object CmdUI {
 
   def main(args: Array[String]): Unit = {
 
-    var dbName = new String("$HOME/.jpersonalstat/data.db")
-    if (System.getProperty("os.name").contains("Windows")) {
-      dbName = new String("./data.db")
-    }
+    var dbName = new String(System.getProperty("user.home") + "/.jpersonalstat/data.db")
+    new File(dbName).getParentFile().mkdir()
     var db = SQLiteInitializer.init(dbName)
     var measurementInterface = new SQLiteMeasurementInterface(db)
     var options = new Options()
