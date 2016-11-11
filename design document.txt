@@ -1,0 +1,51 @@
+NAME
+
+jpersonalstat - count events and manage statistics and logs.
+
+SYNOPSIS
+
+jpersonalstat [--help | -h]
+jpersonalstat [--show | -s] [--all | -A] | [--measurement | -m] <measurement> | [--id | -i] <ID> | [--log | -l] <ID> | [--logs | -L]
+jpersonalstat [--add | -a] <measurement>
+jpersonalstat [--change | -c] --id | -i <ID> [--log | -l] [<message>] [<n>]
+jpersonalstat [--drop | -d] <ID> | [--log | -l] <ID>
+
+DESCRIPTION
+
+Create counters and count events, show counters and corresponding logs, cnange counters and logs, delete counters and logs.
+
+OPTIONS
+
+-h
+--help
+	Show help.
+-s
+--show
+	Show all counters, specified counter, specified counter logs, or all logs. Show all counters if no parameter is given.
+-A
+--all
+	Show all counters.
+-m <measurement>
+--measurement <measurement>
+	Show counter with specified name.
+-i <ID>
+--id <ID>
+	Show counter with specified ID.
+-L
+--logs
+	Show all logs.
+-a <measurement>
+--add <measurement>
+	Increment specified measurement. Create specified measurement if it does not exist and set its counter to 1.
+-c
+--change
+	Change counter value or log entry for measurement.
+-i <ID> <n>
+--id <ID> [<n>]
+	Set counter with specified ID to <n> value or zero value if no <n> is given. If --log parameter is given, replace counter <n>th log message with <message>, or last if no <n> is given.
+-l <ID>
+--log <ID>
+	Show, change or delete log(s) for counter with specified ID.
+-d <ID>
+--drop <ID>
+	Delete specified measurement.
