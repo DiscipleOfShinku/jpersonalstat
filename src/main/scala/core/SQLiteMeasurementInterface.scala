@@ -37,7 +37,7 @@ class SQLiteMeasurementInterface(val con: Connection) extends MeasurementInterfa
     return ls
   }
   protected def newId(): Int = {
-    val query = "SELECT COUNT(*) FROM measurements;"
+    val query = "SELECT MAX(id) FROM measurements;"
     val st = con.createStatement()
     val nId = st.executeQuery(query).getInt(1) + 1
     st.close()
@@ -45,7 +45,7 @@ class SQLiteMeasurementInterface(val con: Connection) extends MeasurementInterfa
   }
 
   protected def newLogId(): Int = {
-    val query = "SELECT COUNT(*) FROM measurement_logs;"
+    val query = "SELECT MAX(id) FROM measurement_logs;"
     val st = con.createStatement()
     val nId = st.executeQuery(query).getInt(1) + 1
     st.close()
