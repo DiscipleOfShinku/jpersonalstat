@@ -24,10 +24,10 @@ trait MeasurementInterface {
   def getLog(m: Measurement): List[MeasurementLog]
 
   //rewrites single Measurement information (excluding log) if it exists
-  def update(m: Measurement)
+  def update(d: Int, v: Int)
 
   //rewrites single log entry if it exists
-  def updateLog(l: MeasurementLog)
+  def updateLog(l: MeasurementLog, message: String)
 
   //creates log object with given parameters and new id
   protected def createLog(mid: Int, message: String, date: DateTime) = {
