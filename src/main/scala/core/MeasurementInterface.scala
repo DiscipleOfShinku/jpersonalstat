@@ -23,11 +23,13 @@ trait MeasurementInterface {
 
   def getLog(m: Measurement): List[MeasurementLog]
 
+  def getAllLogs(): List[MeasurementLog]
+
   //rewrites single Measurement information (excluding log) if it exists
-  def update(d: Int, v: Int)
+  def update(m: Measurement)
 
   //rewrites single log entry if it exists
-  def updateLog(l: MeasurementLog, message: String)
+  def updateLog(l: MeasurementLog)
 
   //creates log object with given parameters and new id
   protected def createLog(mid: Int, message: String, date: DateTime) = {
@@ -42,7 +44,7 @@ trait MeasurementInterface {
   }
 
   //Adds new Measurement with given name
-  def add(name: String)
+  def add(name: String): Measurement
 
   //adds new log entry with given parameters
   //should not be used directly, use inc instead

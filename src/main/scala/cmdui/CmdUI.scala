@@ -48,17 +48,6 @@ object CmdUI {
     options.addOption(input)
     */
 
-    input = new Option("d", "drop", true, "delete measurement or logs; ID is required")
-    input.setRequired(false)
-    options.addOption(input)
-
-    //problem with -l once again
-    /*
-    input = new Option("L", "new_log", true, "create new measurement")
-    input.setRequired(false)
-    options.addOption(input)
-    */
-
     val parser = new DefaultParser()
     val formatter = new HelpFormatter()
 
@@ -70,7 +59,7 @@ object CmdUI {
       else if (cmd.hasOption("s")){
         if (cmd.hasOption("A")) {
            if (cmd.hasOption("l")) {
-             val allLogs: String = measurementInterface.getLogs().toString()
+             val allLogs: String = measurementInterface.getAllLogs().toString()
              System.out.println(allLogs)
           }
           else {
@@ -92,30 +81,17 @@ object CmdUI {
         }
       }
       else if (cmd.hasOption("a")){
-        val ID = measurementInterface.add(cmd.getOptionValue('a'))
-        val dateTime = new DateTime()
-        measurementInterface.addLog(measurementInterface.getById(ID), dateTime , "Created new measurement.")
+        val ID = measurementInterface.add(cmd.getOptionValue('a')).value
         System.out.println("You have created measurement with ID: " + ID)
       }
       else if (cmd.hasOption("i")) {
         val dateTime = new DateTime()
-        measurementInterface.update(cmd.getOptionValue('i').toInt)
-        measurementInterface.addLog(measurementInterface.getById(cmd.getOptionValue('i').toInt), dateTime, "Incrementing measurement")
+        measurementInterface.inc(measurementInterface.getById(cmd.getOptionValue('i').toInt), "Incrementing measurement", DateTime.now)
         System.out.println("You have incremented measurement.")
       }
       else if (cmd.hasOption("c")) {
         //This command does not implemented yet.
         System.out.println("This command does not implemented yet.")
-      }
-      else if (cmd.hasOption("d")) {
-        if (cmd.hasOption("l")) {
-          val dropped = measurementInterface.remLog(cmd.getOptionValue('i').toInt)
-          System.out.println("Logs succesfully deleted: " + dropped)
-        }
-        else {
-          val dropped = measurementInterface.rem(cmd.getOptionValue('i').toInt)
-          System.out.println("Measurement succesfully deleted: " + dropped)
-        }
       }
       else formatter.printHelp("jpersonalstat", options)
     } catch {

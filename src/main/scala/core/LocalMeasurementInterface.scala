@@ -16,6 +16,9 @@ class LocalMeasurementInterface(var ms: List[Measurement], var logs: List[Measur
   def getLog(m: Measurement): List[MeasurementLog] = {
     logs.filter( l => l.mid == m.id)
   }
+  def getAllLogs(): List[MeasurementLog] = {
+    return logs
+  }
   protected def newId() = {
     ms.foldLeft(0)( (i,m) => Math.max(i,m.id)) + 1
   }
@@ -35,9 +38,11 @@ class LocalMeasurementInterface(var ms: List[Measurement], var logs: List[Measur
       logs = logs.updated(idx,l)
     }
   }
-  def add(name: String) = {
-    val m = new Measurement(newId(), name, 0)
+  def add(name: String): Measurement = {
+    val ID = newId()
+    val m = new Measurement(ID, name, 0)
     ms ::= m
+    return getById(ID)
   }
   def addLog(m: Measurement, date: DateTime, message: String) = {
     val l = new MeasurementLog(newLogId(),m.id, date, message)

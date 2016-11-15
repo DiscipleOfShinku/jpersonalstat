@@ -9,11 +9,10 @@ jpersonalstat [--show | -s] [--all | -A] [-m | -l] [<ID>]
 jpersonalstat [--add | -a] <name>
 jpersonalstat [--inc | -i] <ID>
 jpersonalstat [--change | -c] --id | -i <ID> [--log | -l] [<message>] [<n>]
-jpersonalstat [--drop | -d] <ID> [--log | -l]
 
 DESCRIPTION
 
-Create counters and count events, show counters and corresponding logs, cnange counters and logs, delete counters and logs.
+Create counters and count events, show counters and corresponding logs, cnange counters and logs.
 
 OPTIONS
 
@@ -44,7 +43,4 @@ OPTIONS
 	Set counter with specified ID to <n> value or zero value if no <n> is given. If --log parameter is given, replace counter <n>th log message with <message>, or last if no <n> is given.
 -l
 --log
-	Change or delete log(s).
--d <ID>
---drop <ID>
-	Delete specified measurement or logs.
+	Change log.
