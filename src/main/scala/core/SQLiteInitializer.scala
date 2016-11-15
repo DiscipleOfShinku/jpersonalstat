@@ -12,6 +12,7 @@ object SQLiteInitializer {
     cSt.close()
   }
 
+  //Initializes connection with database in `dbpath` file and creates nesessary tables
   def init(dbpath: String): Connection = {
     Class.forName("org.sqlite.JDBC")
     val c: Connection = DriverManager.getConnection("jdbc:sqlite:" ++ dbpath)
