@@ -9,7 +9,12 @@ import com.github.nscala_time.time.Imports._
   * Created by DiscipleOfShinku on 11/5/2016.
   */
 
-object CmdUI {
+//That is for testing
+class CmdUI {
+}
+
+//That is for running application
+object CmdUI extends CmdUI {
 
   def main(args: Array[String]): Unit = {
 
@@ -58,14 +63,14 @@ object CmdUI {
       }
       else if (cmd.hasOption("s")){
         if (cmd.hasOption("A")) {
-           if (cmd.hasOption("l")) {
-             val allLogs: String = measurementInterface.getAllLogs().toString()
-             System.out.println(allLogs)
+          if (cmd.hasOption("l")) {
+            val allLogs: String = measurementInterface.getAllLogs().toString()
+            System.out.println(allLogs)
           }
           else {
-             val allMeasurements: String = measurementInterface.getAll().toString()
-             System.out.println(allMeasurements)
-           }
+            val allMeasurements: String = measurementInterface.getAll().toString()
+            System.out.println(allMeasurements)
+          }
         }
         else if (cmd.hasOption("m")) {
           val measurement: String = measurementInterface.getById(cmd.getOptionValue('m').toInt).toString()
@@ -81,7 +86,7 @@ object CmdUI {
         }
       }
       else if (cmd.hasOption("a")){
-        val ID = measurementInterface.add(cmd.getOptionValue('a')).value
+        val ID = measurementInterface.add(cmd.getOptionValue('a')).id
         System.out.println("You have created measurement with ID: " + ID)
       }
       else if (cmd.hasOption("i")) {
@@ -99,8 +104,8 @@ object CmdUI {
         System.out.println(e.getMessage())
         formatter.printHelp("jpersonalstat", options)
 
-      System.exit(1)
-      return
+        System.exit(1)
+        return
     }
   }
 }
